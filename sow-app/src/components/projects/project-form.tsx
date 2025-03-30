@@ -65,37 +65,35 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button 
-          className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-blue-500"
-        >
-          <PlusCircle className="h-3.5 w-3.5" />
+        <Button size="sm" variant="default" className="gap-2">
+          <PlusCircle className="h-4 w-4" />
           New Project
-        </button>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[550px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-blue-800">Create New Project</DialogTitle>
-          <DialogDescription className="text-slate-600">
+          <DialogTitle>Create New Project</DialogTitle>
+          <DialogDescription>
             Fill in the details for your new project. All fields are required.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right font-medium text-slate-700">
+              <Label htmlFor="name" className="text-right">
                 Name
               </Label>
               <Input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="col-span-3 border-slate-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="col-span-3"
                 placeholder="Enter project name"
                 required
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="startDate" className="text-right font-medium text-slate-700">
+              <Label htmlFor="startDate" className="text-right">
                 Start Date
               </Label>
               <Input
@@ -103,12 +101,12 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="col-span-3 border-slate-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="col-span-3"
                 required
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="endDate" className="text-right font-medium text-slate-700">
+              <Label htmlFor="endDate" className="text-right">
                 End Date
               </Label>
               <Input
@@ -116,45 +114,38 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="col-span-3 border-slate-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                className="col-span-3"
                 required
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="type" className="text-right font-medium text-slate-700">
+              <Label htmlFor="type" className="text-right">
                 Project Type
               </Label>
               <div className="col-span-3">
-                <select
-                  id="type"
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                <Select 
+                  value={type} 
+                  onValueChange={setType}
                   required
                 >
-                  <option value="" disabled>Select project type</option>
-                  <option value="development">Development</option>
-                  <option value="consulting">Consulting</option>
-                  <option value="implementation">Implementation</option>
-                  <option value="maintenance">Maintenance</option>
-                </select>
+                  <SelectTrigger id="type">
+                    <SelectValue placeholder="Select project type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="development">Development</SelectItem>
+                    <SelectItem value="consulting">Consulting</SelectItem>
+                    <SelectItem value="implementation">Implementation</SelectItem>
+                    <SelectItem value="maintenance">Maintenance</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
-          <DialogFooter className="gap-2">
-            <button 
-              type="button" 
-              onClick={() => setOpen(false)}
-              className="inline-flex justify-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50"
-            >
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               Cancel
-            </button>
-            <button 
-              type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-blue-700"
-            >
-              Save Project
-            </button>
+            </Button>
+            <Button type="submit">Save Project</Button>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -38,23 +38,23 @@ export function ProjectManagement() {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border-2 border-blue-200 overflow-hidden">
-      <div className="flex flex-row items-center justify-between p-6 border-b-2 border-blue-100 bg-gradient-to-r from-blue-50 to-slate-50">
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <div>
-          <h2 className="text-2xl font-bold text-blue-700">Project Dashboard</h2>
-          <p className="text-slate-600 mt-1">
+          <CardTitle>Project Management</CardTitle>
+          <CardDescription>
             Add, edit, and remove projects from your workspace
-          </p>
+          </CardDescription>
         </div>
         <ProjectForm onSave={handleSaveProject} />
-      </div>
-      <div>
+      </CardHeader>
+      <CardContent className="p-0">
         <ProjectList
           projects={projects}
           onEdit={handleEditProject}
           onDelete={handleDeleteProject}
         />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 } 
