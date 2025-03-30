@@ -1,0 +1,44 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Phase 1: Project Setup and Basic Structure
+Initialize Next.js project with TypeScript
+Set up shadcn/ui for the component library
+Configure ESLint, Prettier, and other development tools
+Set up basic project structure and routing
+Phase 2: Core Data Models and Types
+Define TypeScript interfaces for:
+Project details
+Service types (consulting, training, data migrations)
+Pricing models (hourly rates, fixed fees)
+Set up basic data validation schemas
+Phase 3: Frontend Development
+Create main layout and navigation
+Implement project creation form
+Build service selection interface
+Develop pricing input forms
+Add client-side validation
+Phase 4: Backend API Development
+Set up API routes in Next.js
+Implement CRUD operations for projects
+Add service and pricing management endpoints
+Set up data persistence (we can start with in-memory storage and later migrate to a database)
+Phase 5: Output Generation
+Implement PDF generation using pdfkit
+Add Excel spreadsheet generation using ExcelJS
+Create download/export functionality
+Add preview capabilities for both formats
+Phase 6: Testing and Quality Assurance
+Add unit tests for core functionality
+Implement integration tests
+Add end-to-end testing
+Set up GitHub Actions for CI/CD
+Phase 7: Deployment and Documentation
+Configure deployment to Vercel
+Set up production environment variables
+Create comprehensive documentation
+Add contribution guidelines
+Would you like to start with Phase 1? I can help you set up the Next.js project with TypeScript and shadcn/ui. We can then work through each phase systematically, ensuring we have a solid foundation before moving to more complex features.
+Let me know if you'd like to proceed with Phase 1, or if you'd prefer to adjust the plan in any way.

@@ -24,7 +24,7 @@ A professional services scope of work estimation tool that helps create accurate
 1. Install Docker Desktop from [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
 2. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/rickyalopezdev/sow.git
    cd sow-app
    ```
 3. Start the development server:
@@ -37,7 +37,7 @@ A professional services scope of work estimation tool that helps create accurate
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/rickyalopezdev/sow.git
    cd sow-app
    ```
 2. Install dependencies:
