@@ -6,16 +6,32 @@ A professional services scope of work estimation tool that helps create accurate
 
 - Modern Next.js 14 application with TypeScript
 - Beautiful UI using shadcn/ui components
+- Lucide React icons for consistent iconography
 - Docker-based development environment
 - Hot-reloading for rapid development
 - Dark mode support
 - Responsive design
+- Animated UI components
 
 ## Prerequisites
 
 - Node.js 20 (LTS) or Docker Desktop
 - npm or yarn
 - Git
+
+## Tech Stack
+
+- **Framework**: Next.js 14 with TypeScript
+- **UI Components**: 
+  - shadcn/ui for modern, accessible components
+  - Lucide React for beautiful icons
+  - Tailwind CSS for styling
+  - tailwindcss-animate for smooth animations
+- **Development Tools**:
+  - ESLint for code linting
+  - Prettier for code formatting
+  - TypeScript for type safety
+- **Containerization**: Docker with Node.js 20 Alpine
 
 ## Getting Started
 
@@ -67,6 +83,15 @@ sow-app/
 ├── public/                 # Static assets
 └── docker/                # Docker configuration
 ```
+
+## UI Components
+
+The application uses a combination of modern UI libraries:
+
+- **shadcn/ui**: A collection of re-usable components built with Radix UI and Tailwind CSS
+- **Lucide React**: A beautiful and consistent icon set
+- **Tailwind CSS**: Utility-first CSS framework
+- **tailwindcss-animate**: For smooth animations and transitions
 
 ## Development Commands
 
