@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- Before you tell me you are done. Always check for errors and fix. 
+- Always commit latest change to github. 

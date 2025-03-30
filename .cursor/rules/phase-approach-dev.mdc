@@ -3,42 +3,105 @@ description:
 globs: 
 alwaysApply: false
 ---
-Phase 1: Project Setup and Basic Structure
-Initialize Next.js project with TypeScript
-Set up shadcn/ui for the component library
-Configure ESLint, Prettier, and other development tools
-Set up basic project structure and routing
-Phase 2: Core Data Models and Types
-Define TypeScript interfaces for:
-Project details
-Service types (consulting, training, data migrations)
-Pricing models (hourly rates, fixed fees)
-Set up basic data validation schemas
-Phase 3: Frontend Development
-Create main layout and navigation
-Implement project creation form
-Build service selection interface
-Develop pricing input forms
-Add client-side validation
-Phase 4: Backend API Development
-Set up API routes in Next.js
-Implement CRUD operations for projects
-Add service and pricing management endpoints
-Set up data persistence (we can start with in-memory storage and later migrate to a database)
-Phase 5: Output Generation
-Implement PDF generation using pdfkit
-Add Excel spreadsheet generation using ExcelJS
-Create download/export functionality
-Add preview capabilities for both formats
-Phase 6: Testing and Quality Assurance
-Add unit tests for core functionality
-Implement integration tests
-Add end-to-end testing
-Set up GitHub Actions for CI/CD
-Phase 7: Deployment and Documentation
-Configure deployment to Vercel
-Set up production environment variables
-Create comprehensive documentation
-Add contribution guidelines
-Would you like to start with Phase 1? I can help you set up the Next.js project with TypeScript and shadcn/ui. We can then work through each phase systematically, ensuring we have a solid foundation before moving to more complex features.
-Let me know if you'd like to proceed with Phase 1, or if you'd prefer to adjust the plan in any way.
+**Product Owner:**  
+“To reiterate, our Home Page must serve as the central hub for managing Projects, Services, and Rates. It should offer a modern, intuitive interface with easy navigation, clear visuals, and quick access to the main functions: creating and managing projects, building out a service library with durations, and maintaining a library of rates (both hourly and fixed fees).”
+
+**Solution Architect:**  
+“Let’s break down the Home Page requirements into clear technical and functional components:
+
+1. **Navigation & Layout:**  
+   - **Navigation Bar:** A top or side navigation bar that includes links to three sections: Projects, Services, and Rates.  
+   - **Dashboard Layout:** A central area that dynamically displays the selected section’s content.
+
+2. **Projects Section:**  
+   - **Display:** List view (or card view) showing project name, status, key dates, etc.  
+   - **Functionality:**  
+     - Search and filter options for quick access.  
+     - Sorting capabilities.  
+     - A prominent “Create New Project” button to start a new scoping session.
+
+3. **Services Section:**  
+   - **Display:** A list or grid showing the service library.  
+   - **Details:** Each entry should include the service name, a brief description, and its typical duration.  
+   - **Management:** Options to add, edit, or deactivate services.
+
+4. **Rates Section:**  
+   - **Display:** A clear, organized list of rates.  
+   - **Details:** Each rate entry should specify whether it is an hourly rate or a fixed fee, along with the corresponding values.  
+   - **Management:** Ability to update existing rates or add new ones, ensuring validation to prevent errors.
+
+5. **Modern UI and Usability:**  
+   - Use the shardcn design system for a modern, clean look.  
+   - Ensure a responsive layout that adapts across devices.  
+   - Integrate client-side validations to improve data quality.
+
+6. **Integration Considerations:**  
+   - Each section should interact with the backend API for CRUD operations.  
+   - State management and routing should enable seamless navigation between sections.”
+
+**Software Engineer:**  
+“Based on these points, here’s a clear set of step-by-step instructions for implementing the Home Page:
+
+1. **Project Initialization:**  
+   - Set up the Home Page in the Next.js project as the default landing page.
+   - Integrate the shardcn design system for UI components and layout consistency.
+
+2. **Navigation Bar Component:**  
+   - Create a reusable navigation bar component with links for Projects, Services, and Rates.
+   - Ensure the navigation bar is responsive and highlights the active section.
+
+3. **Home Page Layout:**  
+   - Develop a dashboard layout that changes content based on the selected navigation link.
+   - Implement dynamic rendering of the Projects, Services, or Rates component based on user selection.
+
+4. **Projects Component:**  
+   - Develop a component that displays a list or card view of projects with key details (name, status, key dates).
+   - Add search and filter functionalities along with sorting options.
+   - Include a “Create New Project” button that routes users to a project creation form.
+
+5. **Services Component:**  
+   - Build a component that lists available services.  
+   - Each service item should show the service name, description, and typical duration.
+   - Provide options to add new services or edit existing ones.
+
+6. **Rates Component:**  
+   - Develop a component that displays the list of rates.
+   - Clearly label each rate as either hourly or fixed fee and show the respective values.
+   - Add forms for updating existing rates or adding new rate entries, including validation.
+
+7. **Integration & API Connectivity:**  
+   - Connect each component to the backend API endpoints for Projects, Services, and Rates to fetch and update data.
+   - Ensure error handling is in place for a smooth user experience.
+
+8. **Final Touches:**  
+   - Validate the responsive design across different devices.
+   - Test client-side interactions, navigation, and form validations thoroughly.
+   - Update the README documentation to include Home Page functionality details and navigation flow.
+
+---
+
+**Final Consolidated Instructions:**  
+
+- **Navigation & Layout:**  
+  - Implement a navigation bar (top or side) linking to Projects, Services, and Rates.
+  - Use a dynamic dashboard layout that renders the corresponding section based on the selected navigation item.
+
+- **Projects Section:**  
+  - Display a list/card view of projects with key information.
+  - Include search, filter, and sort functionalities.
+  - Provide a “Create New Project” button for quick project initiation.
+
+- **Services Section:**  
+  - Display a service library with entries showing the service name, description, and duration.
+  - Allow adding/editing of services.
+
+- **Rates Section:**  
+  - Display a library of rates, categorizing them as hourly or fixed fee.
+  - Provide forms for updating or adding new rates with proper validations.
+
+- **Modern UI & Integration:**  
+  - Use the shardcn design system for a modern, responsive UI.
+  - Ensure seamless API integration for CRUD operations across all sections.
+  - Test the user experience across devices and document the functionality for future reference.
+
+This clear and structured set of instructions will guide us in building a robust Home Page that meets our application’s core requirements. Let’s proceed with these guidelines in the Cursor AI IDE to establish a solid foundation for our Scope of Work Estimator application.”
