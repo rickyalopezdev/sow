@@ -1,9 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { 
   Dialog, 
   DialogContent, 
@@ -33,24 +31,13 @@ import {
 } from "@/components/ui/select"
 import { PlusCircle } from "lucide-react"
 
-// Define the form schema
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Project name must be at least 2 characters.",
-  }),
-  startDate: z.string({
-    required_error: "Start date is required.",
-  }),
-  endDate: z.string({
-    required_error: "End date is required.",
-  }),
-  type: z.string({
-    required_error: "Project type is required.",
-  }),
-})
-
 // Define the type for the form values
-type FormValues = z.infer<typeof formSchema>
+interface FormValues {
+  name: string;
+  startDate: string;
+  endDate: string;
+  type: string;
+}
 
 export interface Project {
   id: string
@@ -69,7 +56,6 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
 
   // Define the form
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       startDate: "",
@@ -120,7 +106,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                     <FormLabel className="text-right">Name</FormLabel>
                     <div className="col-span-3">
                       <FormControl>
-                        <Input placeholder="Enter project name" {...field} />
+                        <Input placeholder="Enter project name" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -137,7 +123,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                     <FormLabel className="text-right">Start Date</FormLabel>
                     <div className="col-span-3">
                       <FormControl>
-                        <Input type="date" {...field} />
+                        <Input type="date" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -154,7 +140,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                     <FormLabel className="text-right">End Date</FormLabel>
                     <div className="col-span-3">
                       <FormControl>
-                        <Input type="date" {...field} />
+                        <Input type="date" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -174,6 +160,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                         <Select 
                           onValueChange={field.onChange} 
                           defaultValue={field.value}
+                          required
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Select project type" />
