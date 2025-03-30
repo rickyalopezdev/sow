@@ -28,11 +28,13 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
   }
 
   return (
-    <div className="rounded-md border">
+    <div>
       <Table>
-        <TableCaption>A list of your projects</TableCaption>
+        <TableCaption className="px-6 py-4 border-t text-center text-sm text-muted-foreground">
+          A list of your projects
+        </TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow className="hover:bg-transparent">
             <TableHead className="w-[40%]">Project Name</TableHead>
             <TableHead>Start Date</TableHead>
             <TableHead>End Date</TableHead>
@@ -43,33 +45,33 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
         <TableBody>
           {projects.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
+              <TableCell colSpan={5} className="h-32 text-center text-muted-foreground">
                 No projects found. Click "New Project" to create one.
               </TableCell>
             </TableRow>
           ) : (
             projects.map((project) => (
-              <TableRow key={project.id}>
+              <TableRow key={project.id} className="hover:bg-slate-50">
                 <TableCell className="font-medium">{project.name}</TableCell>
                 <TableCell>{formatDate(project.startDate)}</TableCell>
                 <TableCell>{formatDate(project.endDate)}</TableCell>
                 <TableCell className="capitalize">{project.type}</TableCell>
                 <TableCell className="text-right">
-                  <div className="flex justify-end space-x-1">
+                  <div className="flex justify-end space-x-2">
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant="outline"
+                      size="sm"
                       onClick={() => onEdit(project)}
-                      className="h-8 w-8"
+                      className="h-8 w-8 p-0"
                     >
                       <Edit className="h-4 w-4" />
                       <span className="sr-only">Edit</span>
                     </Button>
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant="outline"
+                      size="sm"
                       onClick={() => onDelete(project.id)}
-                      className="h-8 w-8 text-destructive hover:text-destructive/90 hover:bg-destructive/10"
+                      className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/20"
                     >
                       <Trash2 className="h-4 w-4" />
                       <span className="sr-only">Delete</span>

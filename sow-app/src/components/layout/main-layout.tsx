@@ -1,7 +1,6 @@
 "use client"
 
 import { ReactNode } from "react"
-import { Sidebar } from "@/components/layout/Sidebar"
 
 interface MainLayoutProps {
   children: ReactNode
@@ -9,15 +8,10 @@ interface MainLayoutProps {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="flex min-h-screen">
-      <div className="hidden md:flex md:w-64 md:flex-col">
-        <Sidebar />
-      </div>
-      <div className="flex flex-1 flex-col">
-        <div className="flex-1 overflow-auto p-6">
-          {children}
-        </div>
-      </div>
+    <div className="min-h-screen bg-slate-50">
+      <main className="flex-1">
+        {children}
+      </main>
     </div>
   )
 } 
