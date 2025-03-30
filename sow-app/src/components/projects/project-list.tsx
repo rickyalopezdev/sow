@@ -28,18 +28,18 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Table>
-        <TableCaption className="px-6 py-4 border-t text-center text-sm text-muted-foreground">
+        <TableCaption className="caption-bottom border-t px-6 py-4 text-center text-sm text-muted-foreground">
           A list of your projects
         </TableCaption>
-        <TableHeader>
-          <TableRow className="hover:bg-transparent">
-            <TableHead className="w-[40%]">Project Name</TableHead>
-            <TableHead>Start Date</TableHead>
-            <TableHead>End Date</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead className="text-right w-[100px]">Actions</TableHead>
+        <TableHeader className="bg-muted/50">
+          <TableRow className="hover:bg-transparent border-b">
+            <TableHead className="w-[40%] font-medium">Project Name</TableHead>
+            <TableHead className="font-medium">Start Date</TableHead>
+            <TableHead className="font-medium">End Date</TableHead>
+            <TableHead className="font-medium">Type</TableHead>
+            <TableHead className="text-right w-[100px] font-medium">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -51,7 +51,7 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
             </TableRow>
           ) : (
             projects.map((project) => (
-              <TableRow key={project.id} className="hover:bg-slate-50">
+              <TableRow key={project.id} className="border-b hover:bg-muted/50">
                 <TableCell className="font-medium">{project.name}</TableCell>
                 <TableCell>{formatDate(project.startDate)}</TableCell>
                 <TableCell>{formatDate(project.endDate)}</TableCell>
@@ -59,19 +59,19 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
                 <TableCell className="text-right">
                   <div className="flex justify-end space-x-2">
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant="ghost"
+                      size="icon"
                       onClick={() => onEdit(project)}
-                      className="h-8 w-8 p-0"
+                      className="h-8 w-8"
                     >
                       <Edit className="h-4 w-4" />
                       <span className="sr-only">Edit</span>
                     </Button>
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant="ghost"
+                      size="icon"
                       onClick={() => onDelete(project.id)}
-                      className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/20"
+                      className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
                       <span className="sr-only">Delete</span>

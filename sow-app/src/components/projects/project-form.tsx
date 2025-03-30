@@ -65,22 +65,22 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" size="sm" className="gap-2 px-4 h-9">
+        <Button size="sm" className="gap-2">
           <PlusCircle className="h-4 w-4" />
           New Project
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[550px]">
-        <DialogHeader className="pb-4">
-          <DialogTitle className="text-xl">Create New Project</DialogTitle>
-          <DialogDescription className="pt-2 text-sm text-muted-foreground">
+        <DialogHeader>
+          <DialogTitle>Create New Project</DialogTitle>
+          <DialogDescription>
             Fill in the details for your new project. All fields are required.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <div className="grid gap-6 py-4">
+          <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right text-sm font-medium">
+              <Label htmlFor="name" className="text-right">
                 Name
               </Label>
               <Input
@@ -93,7 +93,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="startDate" className="text-right text-sm font-medium">
+              <Label htmlFor="startDate" className="text-right">
                 Start Date
               </Label>
               <Input
@@ -106,7 +106,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="endDate" className="text-right text-sm font-medium">
+              <Label htmlFor="endDate" className="text-right">
                 End Date
               </Label>
               <Input
@@ -119,7 +119,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="type" className="text-right text-sm font-medium">
+              <Label htmlFor="type" className="text-right">
                 Project Type
               </Label>
               <div className="col-span-3">
@@ -128,7 +128,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                   onValueChange={setType}
                   required
                 >
-                  <SelectTrigger id="type" className="w-full">
+                  <SelectTrigger id="type">
                     <SelectValue placeholder="Select project type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -141,8 +141,8 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
               </div>
             </div>
           </div>
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)} className="mt-2 sm:mt-0">
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button type="submit">Save Project</Button>
