@@ -1,6 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 import { 
   Dialog, 
   DialogContent, 
@@ -12,7 +15,15 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { 
   Select, 
   SelectContent, 
@@ -22,9 +33,24 @@ import {
 } from "@/components/ui/select"
 import { PlusCircle } from "lucide-react"
 
-interface ProjectFormProps {
-  onSave: (project: Project) => void
-}
+// Define the form schema
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Project name must be at least 2 characters.",
+  }),
+  startDate: z.string({
+    required_error: "Start date is required.",
+  }),
+  endDate: z.string({
+    required_error: "End date is required.",
+  }),
+  type: z.string({
+    required_error: "Project type is required.",
+  }),
+})
+
+// Define the type for the form values
+type FormValues = z.infer<typeof formSchema>
 
 export interface Project {
   id: string
@@ -34,38 +60,44 @@ export interface Project {
   type: string
 }
 
+interface ProjectFormProps {
+  onSave: (project: Project) => void
+}
+
 export function ProjectForm({ onSave }: ProjectFormProps) {
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState("")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
-  const [type, setType] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  // Define the form
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      startDate: "",
+      endDate: "",
+      type: "",
+    },
+  })
+
+  // Define the submit handler
+  function onSubmit(values: FormValues) {
+    // Create a new project with the form values
     const newProject: Project = {
       id: Date.now().toString(),
-      name,
-      startDate,
-      endDate,
-      type
+      ...values,
     }
+    
+    // Save the project
     onSave(newProject)
+    
+    // Close the dialog and reset the form
     setOpen(false)
-    resetForm()
-  }
-
-  const resetForm = () => {
-    setName("")
-    setStartDate("")
-    setEndDate("")
-    setType("")
+    form.reset()
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="default" className="gap-2">
+        <Button size="sm" className="gap-1.5">
           <PlusCircle className="h-4 w-4" />
           New Project
         </Button>
@@ -77,77 +109,97 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
             Fill in the details for your new project. All fields are required.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="col-span-3"
-                placeholder="Enter project name"
-                required
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="startDate" className="text-right">
-                Start Date
-              </Label>
-              <Input
-                id="startDate"
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="col-span-3"
-                required
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="endDate" className="text-right">
-                End Date
-              </Label>
-              <Input
-                id="endDate"
-                type="date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="col-span-3"
-                required
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="type" className="text-right">
-                Project Type
-              </Label>
-              <div className="col-span-3">
-                <Select 
-                  value={type} 
-                  onValueChange={setType}
-                  required
-                >
-                  <SelectTrigger id="type">
-                    <SelectValue placeholder="Select project type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="development">Development</SelectItem>
-                    <SelectItem value="consulting">Consulting</SelectItem>
-                    <SelectItem value="implementation">Implementation</SelectItem>
-                    <SelectItem value="maintenance">Maintenance</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button type="submit">Save Project</Button>
-          </DialogFooter>
-        </form>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <FormLabel className="text-right">Name</FormLabel>
+                    <div className="col-span-3">
+                      <FormControl>
+                        <Input placeholder="Enter project name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="startDate"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <FormLabel className="text-right">Start Date</FormLabel>
+                    <div className="col-span-3">
+                      <FormControl>
+                        <Input type="date" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="endDate"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <FormLabel className="text-right">End Date</FormLabel>
+                    <div className="col-span-3">
+                      <FormControl>
+                        <Input type="date" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <FormLabel className="text-right">Project Type</FormLabel>
+                    <div className="col-span-3">
+                      <FormControl>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select project type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="development">Development</SelectItem>
+                            <SelectItem value="consulting">Consulting</SelectItem>
+                            <SelectItem value="implementation">Implementation</SelectItem>
+                            <SelectItem value="maintenance">Maintenance</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit">Save Project</Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   )
