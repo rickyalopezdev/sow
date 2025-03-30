@@ -30,21 +30,21 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
   return (
     <div className="rounded-md border">
       <Table>
-        <TableCaption>List of all projects</TableCaption>
+        <TableCaption>A list of your projects</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Project Name</TableHead>
+            <TableHead className="w-[40%]">Project Name</TableHead>
             <TableHead>Start Date</TableHead>
             <TableHead>End Date</TableHead>
             <TableHead>Type</TableHead>
-            <TableHead className="w-[100px]">Actions</TableHead>
+            <TableHead className="text-right w-[100px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {projects.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={5} className="text-center">
-                No projects found. Create a new project to get started.
+              <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
+                No projects found. Click "New Project" to create one.
               </TableCell>
             </TableRow>
           ) : (
@@ -54,12 +54,13 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
                 <TableCell>{formatDate(project.startDate)}</TableCell>
                 <TableCell>{formatDate(project.endDate)}</TableCell>
                 <TableCell className="capitalize">{project.type}</TableCell>
-                <TableCell>
-                  <div className="flex space-x-2">
+                <TableCell className="text-right">
+                  <div className="flex justify-end space-x-1">
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => onEdit(project)}
+                      className="h-8 w-8"
                     >
                       <Edit className="h-4 w-4" />
                       <span className="sr-only">Edit</span>
@@ -68,6 +69,7 @@ export function ProjectList({ projects, onEdit, onDelete }: ProjectListProps) {
                       variant="ghost"
                       size="icon"
                       onClick={() => onDelete(project.id)}
+                      className="h-8 w-8 text-destructive hover:text-destructive/90 hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
                       <span className="sr-only">Delete</span>

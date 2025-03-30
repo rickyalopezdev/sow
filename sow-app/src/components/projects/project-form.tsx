@@ -20,6 +20,7 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select"
+import { PlusCircle } from "lucide-react"
 
 interface ProjectFormProps {
   onSave: (project: Project) => void
@@ -64,17 +65,20 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>New Project</Button>
+        <Button className="gap-2">
+          <PlusCircle className="h-4 w-4" />
+          New Project
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Create New Project</DialogTitle>
           <DialogDescription>
-            Fill in the details for your new project.
+            Fill in the details for your new project. All fields are required.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <div className="grid gap-4 py-4">
+          <div className="grid gap-6 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
                 Name
@@ -84,6 +88,7 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="col-span-3"
+                placeholder="Enter project name"
                 required
               />
             </div>
@@ -117,24 +122,29 @@ export function ProjectForm({ onSave }: ProjectFormProps) {
               <Label htmlFor="type" className="text-right">
                 Project Type
               </Label>
-              <Select 
-                value={type} 
-                onValueChange={setType}
-                required
-              >
-                <SelectTrigger id="type" className="col-span-3">
-                  <SelectValue placeholder="Select project type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="development">Development</SelectItem>
-                  <SelectItem value="consulting">Consulting</SelectItem>
-                  <SelectItem value="implementation">Implementation</SelectItem>
-                  <SelectItem value="maintenance">Maintenance</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="col-span-3">
+                <Select 
+                  value={type} 
+                  onValueChange={setType}
+                  required
+                >
+                  <SelectTrigger id="type">
+                    <SelectValue placeholder="Select project type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="development">Development</SelectItem>
+                    <SelectItem value="consulting">Consulting</SelectItem>
+                    <SelectItem value="implementation">Implementation</SelectItem>
+                    <SelectItem value="maintenance">Maintenance</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
           <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
             <Button type="submit">Save Project</Button>
           </DialogFooter>
         </form>
