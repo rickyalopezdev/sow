@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { MainLayout } from "@/components/layout/main-layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SOW Estimator",
-  description: "Professional Services Scope of Work Estimator",
+  title: "SOW App",
+  description: "Statement of Work Application",
 };
 
 export default function RootLayout({

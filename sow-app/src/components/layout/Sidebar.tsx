@@ -1,99 +1,90 @@
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import {
-  LayoutDashboard,
-  Users,
-  FolderKanban,
-  Calendar,
-  FileText,
-  BarChart3,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
+"use client"
 
-const navigationItems = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Team', href: '/team', icon: Users },
-  { name: 'Projects', href: '/projects', icon: FolderKanban },
-  { name: 'Calendar', href: '/calendar', icon: Calendar },
-  { name: 'Documents', href: '/documents', icon: FileText },
-  { name: 'Reports', href: '/reports', icon: BarChart3 },
-];
+import { usePathname } from "next/navigation"
+import { 
+  LayoutDashboard, 
+  FileText, 
+  Briefcase, 
+  DollarSign, 
+  Settings, 
+  User 
+} from "lucide-react"
 
-const teams = [
-  { name: 'Heroicons', href: '/teams/heroicons', initial: 'H' },
-  { name: 'Tailwind Labs', href: '/teams/tailwind', initial: 'T' },
-  { name: 'Workcation', href: '/teams/workcation', initial: 'W' },
-];
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+
+const navItems = [
+  {
+    name: "Dashboard",
+    href: "/",
+    icon: LayoutDashboard,
+  },
+  {
+    name: "Projects",
+    href: "/projects",
+    icon: Briefcase,
+    badge: "3",
+  },
+  {
+    name: "Services",
+    href: "/services",
+    icon: FileText,
+    badge: "5",
+  },
+  {
+    name: "Rates",
+    href: "/rates",
+    icon: DollarSign,
+    badge: "2",
+  },
+]
 
 export function Sidebar() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
-    <div className="flex h-screen flex-col border-r bg-white">
-      <div className="p-6">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-          <div className="h-3 w-3 rounded-full bg-primary" />
-        </div>
-      </div>
-      <div className="flex flex-1 flex-col gap-y-7 px-4">
-        <nav className="flex flex-1 flex-col gap-1">
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  'group flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium',
-                  isActive
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-primary'
-                )}
-              >
-                <Icon
-                  className={cn(
-                    'h-5 w-5 shrink-0',
-                    isActive ? 'text-primary' : 'text-gray-400 group-hover:text-primary'
-                  )}
-                  aria-hidden="true"
-                />
-                {item.name}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div>
-          <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
-          <nav className="mt-2 flex flex-col gap-1">
-            {teams.map((team) => (
-              <Link
-                key={team.name}
-                href={team.href}
-                className="group flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-primary"
-              >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white text-gray-400 border-gray-200 group-hover:border-primary group-hover:text-primary">
-                  {team.initial}
-                </span>
-                {team.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        <div className="mt-auto pb-4">
-          <div className="flex items-center gap-x-4 px-3 py-3 text-sm">
-            <div className="relative h-8 w-8 rounded-full bg-gray-50">
-              <span className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-primary/60" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-gray-900">Tom Cook</span>
-              <span className="text-xs text-gray-500">View profile</span>
-            </div>
+    <div className="flex h-full w-full flex-col border-r bg-white">
+      <div className="flex h-14 items-center border-b px-4">
+        <a
+          href="/"
+          className="flex items-center gap-2 font-semibold"
+        >
+          <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center">
+            <span className="text-xs font-medium text-primary-foreground">S</span>
           </div>
-        </div>
+          <span>SOW App</span>
+        </a>
+      </div>
+      <div className="flex-1 overflow-auto py-2">
+        <nav className="grid gap-1 px-2">
+          {navItems.map((item, index) => (
+            <a
+              key={index}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
+                pathname === item.href ? "bg-accent text-accent-foreground" : "text-muted-foreground"
+              )}
+            >
+              <item.icon className="h-4 w-4" />
+              <span>{item.name}</span>
+              {item.badge && (
+                <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-medium text-primary">
+                  {item.badge}
+                </span>
+              )}
+            </a>
+          ))}
+        </nav>
+      </div>
+      <div className="mt-auto border-t p-4">
+        <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
+          <a href="/account">
+            <User className="h-4 w-4" />
+            <span>Account</span>
+          </a>
+        </Button>
       </div>
     </div>
-  );
+  )
 } 
